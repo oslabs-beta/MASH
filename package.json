@@ -1,0 +1,29 @@
+{
+  "name": "MASH",
+  "version": "1.0.0",
+  "description": "Kafka visualizer and management suite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Svansig/MASH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Svansig/MASH/issues"
+  },
+  "homepage": "https://github.com/Svansig/MASH#readme",
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4",
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "electron": "^9.1.0",
+    "react": "^16.13.1"
+  }
+}
