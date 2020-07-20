@@ -25,7 +25,7 @@ const listProduceResponse = (data: any) => {
   const container = document.getElementById('produce-container');
   const img = document.getElementById('produce-img');
   container.innerText = `PRODUCED: ${produceCount} - ${data.value.name}: ${data.value.quote}`;
-  container.style.backgroundColor = '#' + produceCount.toString(16).padStart(6, '0');
+  container.style.border = '2px solid ' + '#' + produceCount.toString(16).padStart(6, '0');
   img.setAttribute('src', data.value.image_url);
 };
 
