@@ -49,3 +49,8 @@ services:
       - '3000:3000'
     depends_on:
       - prometheus
+
+  kafka-testbed:
+    image: svansig/kafka-testbed
+    ports:
+      - '2022:2022'
