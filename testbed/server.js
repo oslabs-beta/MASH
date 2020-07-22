@@ -23,6 +23,7 @@ io.on('connect', function (socket) {
     socket.on('consume', function () { return consumer_1.consume(socket); });
 });
 var PORT = 2022;
+app.get('/main.css', function (req, res) { return res.sendFile(path.resolve(__dirname, './main.css')); });
 app.get('/main.js', function (req, res) { return res.sendFile(path.resolve(__dirname, '../test-front/main.js')); });
 app.get('/', function (req, res) { return res.sendFile(path.resolve(__dirname, './index.html')); });
 server.listen(PORT, function () { return console.log("Server listening on port " + PORT); });
