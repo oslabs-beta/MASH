@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-testbed": "webpack Utils/test-front/main.ts -o Utils/test-front/main.js",
-    "testbed": "node ./Utils/testbed/server.js"
+    "testbed": "tsc --project Utils/testbed/tsconfig.json && node ./Utils/testbed/server.js"
   },
   "repository": {
     "type": "git",
