@@ -36,27 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.produce = void 0;
+exports.produceToPartition = exports.produceAtRateToPartition = exports.produce = exports.produceAtRate = void 0;
 var kafkajs_1 = require("kafkajs");
 var kafka = new kafkajs_1.Kafka({
     clientId: 'test-producer',
-    brokers: ['localhost:9092']
+    brokers: ['kafka:9092']
 });
 var count = 0;
 var producer = kafka.producer();
+var connect = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, producer.connect()];
+            case 1:
+                _a.sent();
+                console.log('producer connected.');
+                return [2 /*return*/];
+        }
+    });
+}); };
+connect();
+exports.produceAtRate = function (rate) { return setInterval(exports.produce, Math.floor(1000 / rate)); };
 exports.produce = function () {
     return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
         var message, stringMessage, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log('promise begun');
-                    return [4 /*yield*/, producer.connect()];
-                case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
+                    _a.trys.push([0, 2, , 3]);
                     message = {
                         key: 'key' + count++,
                         value: {
@@ -73,17 +80,48 @@ exports.produce = function () {
                             topic: 'test-topic',
                             messages: [stringMessage]
                         })];
-                case 3:
+                case 1:
                     _a.sent();
                     resolve(message);
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 3];
+                case 2:
                     err_1 = _a.sent();
                     reject(new Error(err_1));
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     }); });
+};
+exports.produceAtRateToPartition = function (topic, partition, rate) {
+    if (partition === void 0) { partition = 0; }
+    return setInterval(function () { return exports.produceToPartition(topic, partition); }, Math.floor(1000 / rate));
+};
+exports.produceToPartition = function (topic, partition) {
+    if (partition === void 0) { partition = 0; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var message, err_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    message = {
+                        value: 'Besik',
+                        partition: partition
+                    };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, producer.send({ topic: topic, messages: [message] })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_2 = _a.sent();
+                    console.error('error sending to specific partition', err_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
 };
 //# sourceMappingURL=producer.js.map

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testbed": "node ./testbed/server.js",
+    "testbed": "tsc --project Utils/testbed/tsconfig.json && node ./Utils/testbed/server.js",
     "build-testbed": "webpack test-front/main.ts -o test-front/main.js"
   },
   "keywords": [],
