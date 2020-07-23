@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
     <title>KAFKA TEST BED</title>
   </head>
   <body>
+    <h2>Select Option To Generate Data</h2>
     <div id="overall">
       <div id="produce">
         <input type="text" id="message-num" />
@@ -16,10 +17,40 @@
         </div>
       </div>
       <div id="consume">
+        <label>Overload Partition</label>
+        <input
+          type="text"
+          id="consume-input"
+          placeholder="Input Topic for Consumption"
+        />
         <button id="consume-button">Consume</button>
         <div id="consume-container">
           <img src="#" alt="#" id="consume-img" />
         </div>
+      </div>
+    </div>
+    <div class="register">
+      <div class="createFields">
+        <label>Overload Partition</label>
+        <input type="text" id="OverloadPartition" placeholder="Input Data" />
+        <button id="OverloadPartition-button">ProduceRate</button>
+      </div>
+      <div class="createFields">
+        <label>Produce Rate</label>
+        <input type="text" id="produceRate" placeholder="Input Rate" />
+        <button id="produceRate-button">ProduceRate</button>
+      </div>
+      <div class="createFields">
+        <label>Consume Rate</label>
+        <input type="text" id="consumeRateSt" placeholder="Input String" />
+        <input type="text" id="consumeRateNum" placeholder="Input Number" />
+        <button id="consumeRate-button">ConsumeRate</button>
+      </div>
+      <div class="createFields">
+        <label>Under Replicate</label>
+        <input type="text" id="underReplicateSt" placeholder="Input String" />
+        <input type="text" id="underReplicateNum" placeholder="Input Bumber" />
+        <button id="underReplicate-button">UnderReplicate</button>
       </div>
     </div>
     <script defer src="main.js"></script>

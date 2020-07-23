@@ -2,7 +2,7 @@ import { Kafka, Message } from 'kafkajs';
 
 const kafka = new Kafka({
   clientId: 'test-producer',
-  brokers: ['localhost:9092'],
+  brokers: ['kafka:9092'],
 });
 
 let count = 0;
@@ -20,10 +20,16 @@ export interface ProduceResponse {
     image_url: string;
   };
 }
+const connect = async () => {
+  await producer.connect();
+  console.log('producer connected.');
+};
+connect();
+
+export const produceAtRate = (rate: number) => setInterval(produce, Math.floor(1000 / rate));
+
 export const produce = (): Promise<ProduceResponse> => {
   return new Promise(async (resolve, reject) => {
-    console.log('promise begun');
-    await producer.connect();
     try {
       const message: ProduceResponse = {
         key: 'key' + count++,
@@ -38,6 +44,7 @@ export const produce = (): Promise<ProduceResponse> => {
         key: message.key,
         value: JSON.stringify(message.value),
       };
+
       await producer.send({
         topic: 'test-topic',
         messages: [stringMessage],
@@ -47,4 +54,19 @@ export const produce = (): Promise<ProduceResponse> => {
       reject(new Error(err));
     }
   });
+};
+
+export const produceAtRateToPartition = (topic: string, partition: number = 0, rate: number) => {
+  return setInterval(() => produceToPartition(topic, partition), Math.floor(1000 / rate));
+};
+export const produceToPartition = async (topic: string, partition: number = 0) => {
+  const message: Message = {
+    value: 'Besik',
+    partition,
+  };
+  try {
+    await producer.send({ topic, messages: [message] });
+  } catch (err) {
+    console.error('error sending to specific partition', err);
+  }
 };

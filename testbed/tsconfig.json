@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "module": "commonjs"
-  },
-  "include": ["*.ts"]
-}

@@ -36,54 +36,67 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.produce = void 0;
+exports.createTopicWithMultipleReplicants = exports.createTopicWithMultiplePartitions = exports.createTopic = void 0;
 var kafkajs_1 = require("kafkajs");
 var kafka = new kafkajs_1.Kafka({
-    clientId: 'test-producer',
+    clientId: 'test-client',
     brokers: ['kafka:9092']
 });
-var count = 0;
-var producer = kafka.producer();
-exports.produce = function () {
-    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-        var message, stringMessage, err_1;
+var admin = kafka.admin();
+var connect = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, admin.connect()];
+            case 1:
+                _a.sent();
+                console.log('Admin client connected.');
+                return [2 /*return*/];
+        }
+    });
+}); };
+connect();
+exports.createTopic = function (topic, numPartitions, replicationFactor) {
+    if (topic === void 0) { topic = 'test-topic'; }
+    if (numPartitions === void 0) { numPartitions = 1; }
+    if (replicationFactor === void 0) { replicationFactor = 1; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var topicConfig, newTopicCreated, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log('promise begun');
-                    return [4 /*yield*/, producer.connect()];
+                    topicConfig = {
+                        topic: topic,
+                        numPartitions: numPartitions,
+                        replicationFactor: replicationFactor
+                    };
+                    _a.label = 1;
                 case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
-                    message = {
-                        key: 'key' + count++,
-                        value: {
-                            name: 'me',
-                            quote: 'hello',
-                            image_url: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/257/smiling-face-with-sunglasses_1f60e.png'
-                        }
-                    };
-                    stringMessage = {
-                        key: message.key,
-                        value: JSON.stringify(message.value)
-                    };
-                    return [4 /*yield*/, producer.send({
-                            topic: 'test-topic',
-                            messages: [stringMessage]
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, admin.createTopics({
+                            topics: [topicConfig]
                         })];
+                case 2:
+                    newTopicCreated = _a.sent();
+                    console.log(newTopicCreated
+                        ? "Topic with name " + topic + " was created."
+                        : "Topic with name " + topic + " already exists.");
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.sent();
-                    resolve(message);
-                    return [3 /*break*/, 5];
-                case 4:
                     err_1 = _a.sent();
-                    reject(new Error(err_1));
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    console.error(err_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
-    }); });
+    });
 };
-//# sourceMappingURL=producer.js.map
+// Create a topic with multiple partitions
+exports.createTopicWithMultiplePartitions = function (topic, numPartitions) {
+    return exports.createTopic(topic, numPartitions);
+};
+// Create a topic with multiple replicants
+exports.createTopicWithMultipleReplicants = function (topic, numReplicants) {
+    if (numReplicants === void 0) { numReplicants = 2; }
+    return exports.createTopic(topic, undefined, numReplicants);
+};
+//# sourceMappingURL=topics.js.map

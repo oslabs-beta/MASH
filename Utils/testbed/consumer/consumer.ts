@@ -1,8 +1,8 @@
 import { Kafka, EachMessagePayload } from 'kafkajs';
 
 const kafka = new Kafka({
-  clientId: 'test-producer',
-  brokers: ['localhost:9092'],
+  clientId: 'test-consumer',
+  brokers: ['kafka:9092'],
 });
 
 let count = 0;
@@ -23,12 +23,31 @@ export interface ConsumeResponse {
   };
 }
 
-export const consume = async (socket: any) => {
+export const consume = async (socket: any, topic: string = 'test-topic') => {
+  const consumer = kafka.consumer({ groupId: 'test-group' });
+  consumer.subscribe({ topic });
   await consumer.run({
     eachMessage: async (payload: EachMessagePayload) => {
       const { message } = payload;
-      console.log(count++);
       socket.emit('consumeResponse', message.value.toString());
     },
   });
+};
+
+export const consumeAtRate = async (socket: any, rate: number, topic: string) => {
+  try {
+    const ratedConsumer = kafka.consumer();
+    await ratedConsumer.connect();
+    await ratedConsumer.subscribe({ topic });
+    await ratedConsumer.run({
+      eachMessage: async (payload: EachMessagePayload) => {
+        const { value } = payload.message;
+        socket.emit('ratedConsumeResponse', value.toString());
+        ratedConsumer.pause([{ topic }]);
+        setTimeout(() => ratedConsumer.resume([{ topic }]), Math.floor(1000 / rate));
+      },
+    });
+  } catch (err) {
+    console.error('rated consumer error:', err);
+  }
 };
