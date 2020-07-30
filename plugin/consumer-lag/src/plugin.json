@@ -1,0 +1,36 @@
+{
+  "type": "panel",
+  "name": "consumer_lag",
+  "id": "envoya-consumer-lag",
+  "info": {
+    "description": "shows consumer lag for a kafka instance",
+    "author": {
+      "name": "Steve Budarz",
+      "url": ""
+    },
+    "keywords": [
+      "kafka"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/simple-react-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/simple-react-panel/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
