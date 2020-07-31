@@ -47,6 +47,8 @@ services:
     image: grafana/grafana
     ports:
       - '3000:3000'
+    volumes:
+      - $PWD/plugin:/var/lib/grafana/plugins
     depends_on:
       - prometheus
 
