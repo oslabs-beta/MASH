@@ -1,0 +1,45 @@
+body {
+  background: lightBlue;
+}
+#overall {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1rem;
+}
+#overall > div {
+  margin: 2rem;
+  width: 100%;
+}
+#produce-container {
+  font-size: x-large;
+  padding: 2em;
+}
+#consume-container {
+  padding: 2em;
+  font-size: x-large;
+}
+
+img {
+  height: 25px;
+  padding-left: 6px;
+}
+
+.createFields {
+  width: 100%;
+  display: flex;
+  margin-bottom: 0.2rem;
+}
+
+.createFields label {
+  min-width: 8rem;
+  width: 9rem;
+}
+.createFields button {
+  min-width: 8rem;
+  width: 9rem;
+}
+.register {
+  color: white;
+  background-color: lightslategrey;
+}
