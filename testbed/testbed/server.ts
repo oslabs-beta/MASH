@@ -47,25 +47,31 @@ io.on('connect', (socket: any) => {
     consumeAtRate(socket, rate, topic);
   });
 
-  socket.on(SocketNames.overloadPartition, async (data: SocketMessages.overloadPartition) => {
-    const { topic, numPartitions } = data;
-    let { messages } = data;
-    await createTopicWithMultiplePartitions(topic, numPartitions);
-    while (messages) {
-      // we can add in custom partitioning logic here, if needed
-      // right now, this will overload partition 0 by default
-      produceToPartition(topic);
-      messages -= 1;
+  socket.on(
+    SocketNames.overloadPartition,
+    async (data: SocketMessages.overloadPartition) => {
+      const { topic, numPartitions } = data;
+      let { messages } = data;
+      await createTopicWithMultiplePartitions(topic, numPartitions);
+      while (messages) {
+        // we can add in custom partitioning logic here, if needed
+        // right now, this will overload partition 0 by default
+        produceToPartition(topic);
+        messages -= 1;
+      }
     }
-  });
+  );
 
-  socket.on(SocketNames.underReplicate, (data: SocketMessages.underReplicate) => {
-    const { topic, numReplicants } = data;
-    // any number of replicants greater than the number of brokers will cause an under-replication event
-    // default number of brokers is 1
-    // default number of replicants is 2
-    createTopicWithMultipleReplicants(topic, numReplicants);
-  });
+  socket.on(
+    SocketNames.underReplicate,
+    (data: SocketMessages.underReplicate) => {
+      const { topic, numReplicants } = data;
+      // any number of replicants greater than the number of brokers will cause an under-replication event
+      // default number of brokers is 1
+      // default number of replicants is 2
+      createTopicWithMultipleReplicants(topic, numReplicants);
+    }
+  );
 
   socket.on(SocketNames.createTopic, (data: SocketMessages.createTopic) => {
     const { topic } = data;
@@ -79,8 +85,16 @@ io.on('connect', (socket: any) => {
 });
 const PORT = 2022;
 
-app.get('/main.css', (req, res) => res.sendFile(path.resolve(__dirname, 'main.css')));
-app.get('/main.js', (req, res) => res.sendFile(path.resolve(__dirname, '../test-front/main.js')));
-app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, './index.html')));
+app.get('/main.css', (req, res) =>
+  res.sendFile(path.resolve(__dirname, 'main.css'))
+);
+app.get('/main.js', (req, res) =>
+  res.sendFile(path.resolve(__dirname, '../test-front/main.js'))
+);
+app.get('/', (req, res) =>
+  res.sendFile(path.resolve(__dirname, './index.html'))
+);
 
-server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+export = server.listen(PORT, () =>
+  console.log(`Server listening on port ${PORT}`)
+);
