@@ -82,6 +82,8 @@ const attachConsumerToTopic = (topic: TopicData[], consumer: ConsumerData[]) => 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const theme = useTheme();
   const styles = getStyles();
+  
+
   console.log(data);
 
   let topics = filterTopic(data);
@@ -89,33 +91,60 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
   let consumers = filterConsumers(data);
   let consumersData = getConsumerData(consumers);
   attachConsumerToTopic(topicsData, consumersData);
-
+console.log("topics data:", topicsData)
   return (
-    <div
-      className={cx(
-        styles.wrapper,
-        css`
-          width: ${width}px;
-          height: ${height}px;
-        `
-      )}
-    >
-      {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
-      {topicsData
-        .map(
-          topic =>
-            topic.topic +
-            ' - ' +
-            topic.offset +
-            ' : ' +
-            topic.children.map(child => child.consumergroup + ' - ' + child.offset).join(', ')
-        )
-        .map(s => (
-          <div>{s}</div>
-        ))}
-    </div>
+    // <div
+    //   className={cx(
+    //     styles.wrapper,
+    //     css`
+    //       width: ${width}px;
+    //       height: ${height}px;
+    //     `
+    //   )}
+    // >
+    //   {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
+    //   {topicsData
+    //     .map(
+    //       topic =>
+    //         topic.topic +
+    //         ' - ' +
+    //         topic.offset +
+    // // const scale = d3
+    // // .scaleLinear()
+    // // .domain([0, topic.offset])
+    // // .range([0, width]);
+    //         ' : ' +
+    //         topic.children.map(child => child.consumergroup + ' - ' + child.offset).join(', ')
+    //     )
+    //     .map(s => (
+    //       <div>{s}</div>
+    //     ))}
+    // </div>
+
+<svg width={width} height={height}>
+<g>
+  {/* make one rectangle for the parent / topic */}
+  {/* make one rectangle for each of the children, within the same space as the parent offset */}
+  {topicsData.map((topic, i) => {
+const topicWidth = width / topicsData.length
+const topicXOffset = topicWidth * i
+const childWidth = topicWidth / topic.children.length
+const scale = (messagesOffset: number, topicOffset: number ): number => ((messagesOffset + 1) / (topicOffset + 1)) * height 
+  return (
+    <g>
+    <rect x={topicXOffset} y={0} width={topicWidth - 10} height={scale(topic.offset, topic.offset)} fill={theme.palette.red} />
+      {topic.children.map((child, j) => (
+        <rect x={topicXOffset + j * childWidth} y={0} width={childWidth - 10} height={scale(child.offset, topic.offset) - 10} fill={theme.palette.blue95} />
+      ))}
+      </g>
+  )} 
+  )}
+</g>
+</svg>
   );
 };
+
+
 
 const getStyles = stylesFactory(() => {
   return {

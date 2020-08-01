@@ -49,6 +49,8 @@ services:
       - '3000:3000'
     depends_on:
       - prometheus
+    volumes:
+      - $PWD/plugin:/var/lib/grafana/plugins
 
   kafka-testbed:
     image: svansig/kafka-testbed
