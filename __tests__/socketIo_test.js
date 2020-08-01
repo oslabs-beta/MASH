@@ -84,7 +84,6 @@ describe('basic socket.io example', () => {
     // once connected, emit Besik
     ioServer.emit('message1', 'Besik');
     socket.once('message1', (message) => {
-      // console.log(message);
       // Check that the message matches
       expect(message).toBe('Besik');
       done();
