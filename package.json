@@ -4,7 +4,7 @@
   "description": "A kafka testbed for MASH",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "testbed": "tsc --project Utils/testbed/tsconfig.json && node ./Utils/testbed/server.js",
     "build-testbed": "webpack test-front/main.ts -o test-front/main.js"
   },
@@ -13,11 +13,16 @@
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.8",
     "@types/kafkajs": "^1.9.0",
+    "@types/puppeteer": "^3.0.1",
     "@types/socket.io": "^2.1.9",
     "@types/socket.io-client": "^1.4.33",
     "express": "^4.17.1",
+    "jest": "^26.2.1",
+    "jest-puppeteer": "^4.4.0",
     "kafkajs": "^1.12.0",
+    "puppeteer": "^5.2.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "ts-loader": "^8.0.1",

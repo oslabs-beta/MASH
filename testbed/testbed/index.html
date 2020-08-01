@@ -7,12 +7,20 @@
     <title>KAFKA TEST BED</title>
   </head>
   <body>
-    <h2>Select Option To Generate Data</h2>
+    <h2 id="header">Select Option To Generate Data</h2>
     <div id="overall">
       <div id="produce">
         <label>Produce Number of Messages to Topic</label>
-        <input type="text" id="produce-topic" placeholder="Topic to Publish To" />
-        <input type="text" id="message-num" placeholder="Number of Messages to Publish" />
+        <input
+          type="text"
+          id="produce-topic"
+          placeholder="Topic to Publish To"
+        />
+        <input
+          type="text"
+          id="message-num"
+          placeholder="Number of Messages to Publish"
+        />
         <button id="produce-button">Produce</button>
         <div id="produce-container">
           <img src="#" alt="#" id="produce-img" />
@@ -20,7 +28,11 @@
       </div>
       <div id="consume">
         <label>Consume All From Beginning</label>
-        <input type="text" id="consume-input" placeholder="Input Topic for Consumption" />
+        <input
+          type="text"
+          id="consume-input"
+          placeholder="Input Topic for Consumption"
+        />
         <button id="consume-button">Consume All</button>
         <div id="consume-container">
           <img src="#" alt="#" id="consume-img" />
@@ -30,7 +42,11 @@
     <div class="register">
       <div class="createFields">
         <label>Overload Partition</label>
-        <input type="text" id="OverloadPartition" placeholder="Input Topic To Overload" />
+        <input
+          type="text"
+          id="OverloadPartition"
+          placeholder="Input Topic To Overload"
+        />
         <button id="OverloadPartition-button">Overload Partition</button>
       </div>
       <div class="createFields">
