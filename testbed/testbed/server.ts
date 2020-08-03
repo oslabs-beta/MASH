@@ -28,10 +28,13 @@ io.on('connect', (socket: any) => {
     // should run the produce function data.messagesCount amount of times
     let { messagesCount, topic } = data;
     topic = topic === '' ? 'test-topic' : topic;
-    while (messagesCount) {
+    let remaining = messagesCount;
+    while (remaining) {
       // should send back the data on completion of each to show on the client side
       produce(topic)
-        .then((resp: ProduceResponse) => socket.emit('produceResponse', resp))
+        .then((resp: ProduceResponse) =>
+          socket.emit('produceResponse', resp, Math.floor(1 - remaining / messagesCount) * 100)
+        )
         .catch(console.error);
       messagesCount--;
     }
