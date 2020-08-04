@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import io from 'socket.io-client';
-import { PanelProps } from '@grafana/data';
+import { PanelProps, PanelData } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { ProducerContainer } from './Components/Containers/Producer';
 import { ConsumerContainer } from 'Components/Containers/Consumer';
+import { TopicBox } from './Components/Containers/TopicBox';
 // import { stylesFactory, useTheme } from '@grafana/ui';
 
 interface Props extends PanelProps<SimpleOptions> {}
@@ -16,13 +17,20 @@ const connectToSocket = (socketAddress: string) => {
   return socket;
 };
 
+const getTopics = (data: PanelData): Array<string | undefined> => {
+  return data.series.map(series => series.fields[1].labels?.topic).filter(topic => topic !== '__consumer_offsets');
+};
+
 export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) => {
-  const [socket, setSocket] = useState(connectToSocket(TESTBED_SOCKET_ADDRESS));
+  const socket = useMemo(() => connectToSocket(TESTBED_SOCKET_ADDRESS), [TESTBED_SOCKET_ADDRESS]);
   const [topic, setTopic] = useState('test-topic');
+  const [topicsList, setTopicsList] = useState(getTopics(data));
   const [showStatus, setShowStatus] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const handleTopicChange = (e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value);
   const toggleStatus = () => setShowStatus(!showStatus);
+
+  console.log(data);
   useEffect(() => {
     socket.on('connect', () => setIsConnected(true));
     socket.on('disconnect', () => setIsConnected(false));
@@ -49,6 +57,11 @@ export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) 
       </div>
       <ProducerContainer socket={socket} width={width} topic={topic} setTopic={setTopic} isConnected={isConnected} />
       <ConsumerContainer socket={socket} width={width} topic={topic} setTopic={setTopic} />
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '0.5rem' }}>
+        {topicsList.map(t => (
+          <TopicBox topic={t} setTopic={setTopic} />
+        ))}
+      </div>
     </div>
   );
 };

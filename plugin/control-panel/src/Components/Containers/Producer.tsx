@@ -32,7 +32,6 @@ const handleClick = (
   socket.emit(SocketNames.produceNum, message);
   messagesSent = numMessages;
   messagesReceived = 0;
-  setTopic('test-topic');
 };
 
 export const ProducerContainer: React.FC<ProducerContainerProps> = props => {
@@ -47,7 +46,7 @@ export const ProducerContainer: React.FC<ProducerContainerProps> = props => {
   return (
     <div style={{ textAlign: 'left' }}>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start' }}>
-        <div style={{ minWidth: '35vw' }}>
+        <div style={{ minWidth: '35%' }}>
           <h3>Produce Messages:</h3>
         </div>
         <input

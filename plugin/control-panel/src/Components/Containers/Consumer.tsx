@@ -14,7 +14,6 @@ export const ConsumerContainer: React.FC<ConsumerContainerProps> = props => {
   const [consumedMessages, setConsumedMessages] = useState(0);
   const handleClick = () => {
     socket.emit(SocketNames.consumeAll, { topic });
-    setTopic('test-topic');
     messages = 0;
     setConsumedMessages(0);
   };
