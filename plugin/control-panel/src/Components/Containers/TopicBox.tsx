@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface TopicBoxProps {
   topic: string;
@@ -6,18 +6,21 @@ interface TopicBoxProps {
 }
 export const TopicBox = (props: TopicBoxProps) => {
   const { topic, setTopic } = props;
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div
       style={{
-        border: '2px solid white',
-        margin: '0 0.5rem 0 0.5rem',
+        border: '2px solid #d8d9da',
+        margin: '0.5rem',
         padding: '0.5rem',
-        display: 'flex',
         minWidth: '15%',
-        flexWrap: 'wrap',
-        textAlign: 'center',
+        background: isHovered ? '#d8d9da' : 'inherit',
+        color: isHovered ? 'black' : 'inherit',
+        cursor: 'pointer',
       }}
       onClick={() => setTopic(topic)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {topic}
     </div>

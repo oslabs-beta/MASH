@@ -37,7 +37,7 @@ export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) 
   }, [socket]);
 
   return (
-    <div style={{ width, height, margin: 'auto', textAlign: 'center' }}>
+    <div style={{ width, height, margin: 'auto', textAlign: 'center', overflow: 'scroll' }}>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <h2>Welcome to the Control Panel</h2>
         <div style={{ marginLeft: 'auto' }}>
@@ -50,14 +50,23 @@ export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) 
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <div style={{ minWidth: '35vw', textAlign: 'start' }}>
+        <div style={{ minWidth: '35%', textAlign: 'start' }}>
           <h3>Please choose a topic:</h3>
         </div>
         <input style={{ marginLeft: '1rem' }} type="text" value={topic} onChange={handleTopicChange} />
       </div>
       <ProducerContainer socket={socket} width={width} topic={topic} setTopic={setTopic} isConnected={isConnected} />
       <ConsumerContainer socket={socket} width={width} topic={topic} setTopic={setTopic} />
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '0.5rem' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          margin: 'auto',
+          maxWidth: '85%',
+          flexWrap: 'wrap',
+        }}
+      >
         {topicsList.map(t => (
           <TopicBox topic={t} setTopic={setTopic} />
         ))}

@@ -57,7 +57,10 @@ export const ProducerContainer: React.FC<ProducerContainerProps> = props => {
           onChange={handleNumMessagesChange}
         />
         {isConnected && (
-          <button style={{ color: 'black' }} onClick={() => handleClick(topic, numMessages, socket, setTopic)}>
+          <button
+            style={{ background: '#d8d9da', color: 'black' }}
+            onClick={() => handleClick(topic, numMessages, socket, setTopic)}
+          >
             Produce Messages
           </button>
         )}
