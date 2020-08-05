@@ -25,6 +25,8 @@ export const SocketNames: SocketNames = {
   underReplicate: 'underReplicate',
 };
 
+// eslint:
+// tslint:disable:no-namespace
 export namespace SocketMessages {
   export type produceNum = { messagesCount: number; topic: string };
 
