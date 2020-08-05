@@ -3,16 +3,17 @@ import { PanelProps, PanelData, DataFrame } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@grafana/ui';
+import {TopicBar} from './Components/Topic'
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-interface ConsumerData {
+export interface ConsumerData {
   topic: string;
   offset: number;
   consumergroup: string;
 }
 
-interface TopicData {
+export interface TopicData {
   topic: string;
   partition: number;
   children: ConsumerData[];
@@ -27,9 +28,7 @@ const getLastElement = (arr: number[]) => arr[arr.length - 1];
   */
 
 const filterTopic = (data: PanelData) => {
-  return data.series
-
-    .filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
+  return data.series.filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
     .filter(series => (series.fields[1].labels ? series.fields[1].labels.topic !== '__consumer_offsets' : false));
 };
 
@@ -82,7 +81,6 @@ const attachConsumerToTopic = (topic: TopicData[], consumer: ConsumerData[]) => 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const theme = useTheme();
   const styles = getStyles();
-  
 
   console.log(data);
 
@@ -91,17 +89,16 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
   let consumers = filterConsumers(data);
   let consumersData = getConsumerData(consumers);
   attachConsumerToTopic(topicsData, consumersData);
-console.log("topics data:", topicsData)
+  console.log('topics data:', topicsData);
+
+  /*
+    Add the values for the total consumer offset by topic / partition
+    Should be vsible on hover
+      
+  */
+
   return (
-    // <div
-    //   className={cx(
-    //     styles.wrapper,
-    //     css`
-    //       width: ${width}px;
-    //       height: ${height}px;
-    //     `
-    //   )}
-    // >
+
     //   {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
     //   {topicsData
     //     .map(
@@ -120,31 +117,16 @@ console.log("topics data:", topicsData)
     //       <div>{s}</div>
     //     ))}
     // </div>
-
-<svg width={width} height={height}>
-<g>
-  {/* make one rectangle for the parent / topic */}
-  {/* make one rectangle for each of the children, within the same space as the parent offset */}
-  {topicsData.map((topic, i) => {
-const topicWidth = width / topicsData.length
-const topicXOffset = topicWidth * i
-const childWidth = topicWidth / topic.children.length
-const scale = (messagesOffset: number, topicOffset: number ): number => ((messagesOffset + 1) / (topicOffset + 1)) * height 
-  return (
-    <g>
-    <rect x={topicXOffset} y={0} width={topicWidth - 10} height={scale(topic.offset, topic.offset)} fill={theme.palette.red} />
-      {topic.children.map((child, j) => (
-        <rect x={topicXOffset + j * childWidth} y={0} width={childWidth - 10} height={scale(child.offset, topic.offset) - 10} fill={theme.palette.blue95} />
-      ))}
+    
+    <svg width={width} height={height}>
+      <g>
+        {topicsData.map((topic, i) => {
+          return <TopicBar index={i} height={height} topic={topic} width={width} totalNumOfTopics={topicsData.length} />
+        })}
       </g>
-  )} 
-  )}
-</g>
-</svg>
+    </svg>
   );
 };
-
-
 
 const getStyles = stylesFactory(() => {
   return {
