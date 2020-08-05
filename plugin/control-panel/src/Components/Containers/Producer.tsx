@@ -15,8 +15,12 @@ let messagesReceived = 0;
 const updatePercentage = (percentDone: number, setPercentDone: React.Dispatch<React.SetStateAction<number>>) => {
   messagesReceived++;
   const newPercent = (messagesReceived / messagesSent) * 100;
-  if (Math.floor(newPercent) > percentDone) setPercentDone(newPercent);
-  if (newPercent === 100) setTimeout(() => setPercentDone(0), 2000);
+  if (Math.floor(newPercent) > percentDone) {
+    setPercentDone(newPercent);
+  }
+  if (newPercent === 100) {
+    setTimeout(() => setPercentDone(0), 2000);
+  }
 };
 
 const handleClick = (
