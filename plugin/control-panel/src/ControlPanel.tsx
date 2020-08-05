@@ -5,7 +5,6 @@ import { SimpleOptions } from 'types';
 import { ProducerContainer } from './Components/Containers/Producer';
 import { ConsumerContainer } from 'Components/Containers/Consumer';
 import { TopicBox } from './Components/Containers/TopicBox';
-// import { stylesFactory, useTheme } from '@grafana/ui';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
@@ -31,10 +30,15 @@ export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) 
   const toggleStatus = () => setShowStatus(!showStatus);
 
   console.log(data);
+
   useEffect(() => {
     socket.on('connect', () => setIsConnected(true));
     socket.on('disconnect', () => setIsConnected(false));
   }, [socket]);
+
+  useEffect(() => {
+    setTopicsList(getTopics(data));
+  }, [data]);
 
   return (
     <div style={{ width, height, margin: 'auto', textAlign: 'center', overflow: 'scroll' }}>
@@ -68,7 +72,7 @@ export const ControlPanel: React.FC<Props> = ({ options, data, width, height }) 
         }}
       >
         {topicsList.map(t => (
-          <TopicBox topic={t} setTopic={setTopic} />
+          <TopicBox topic={t} setTopic={setTopic} isSelected={t === topic} />
         ))}
       </div>
     </div>

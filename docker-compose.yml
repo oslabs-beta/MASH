@@ -51,6 +51,8 @@ services:
       - $PWD/plugin:/var/lib/grafana/plugins
     depends_on:
       - prometheus
+    volumes:
+      - $PWD/plugin:/var/lib/grafana/plugins
 
   kafka-testbed:
     image: svansig/kafka-testbed

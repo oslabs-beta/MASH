@@ -3,16 +3,17 @@ import { PanelProps, PanelData, DataFrame } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@grafana/ui';
+import {TopicBar} from './Components/Topic'
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-interface ConsumerData {
+export interface ConsumerData {
   topic: string;
   offset: number;
   consumergroup: string;
 }
 
-interface TopicData {
+export interface TopicData {
   topic: string;
   partition: number;
   children: ConsumerData[];
@@ -27,9 +28,7 @@ const getLastElement = (arr: number[]) => arr[arr.length - 1];
   */
 
 const filterTopic = (data: PanelData) => {
-  return data.series
-
-    .filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
+  return data.series.filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
     .filter(series => (series.fields[1].labels ? series.fields[1].labels.topic !== '__consumer_offsets' : false));
 };
 
@@ -82,6 +81,7 @@ const attachConsumerToTopic = (topic: TopicData[], consumer: ConsumerData[]) => 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const theme = useTheme();
   const styles = getStyles();
+
   console.log(data);
 
   let topics = filterTopic(data);
@@ -89,31 +89,42 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
   let consumers = filterConsumers(data);
   let consumersData = getConsumerData(consumers);
   attachConsumerToTopic(topicsData, consumersData);
+  console.log('topics data:', topicsData);
+
+  /*
+    Add the values for the total consumer offset by topic / partition
+    Should be vsible on hover
+      
+  */
 
   return (
-    <div
-      className={cx(
-        styles.wrapper,
-        css`
-          width: ${width}px;
-          height: ${height}px;
-        `
-      )}
-    >
-      {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
-      {topicsData
-        .map(
-          topic =>
-            topic.topic +
-            ' - ' +
-            topic.offset +
-            ' : ' +
-            topic.children.map(child => child.consumergroup + ' - ' + child.offset).join(', ')
-        )
-        .map(s => (
-          <div>{s}</div>
-        ))}
-    </div>
+
+    //   {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
+    //   {topicsData
+    //     .map(
+    //       topic =>
+    //         topic.topic +
+    //         ' - ' +
+    //         topic.offset +
+    // // const scale = d3
+    // // .scaleLinear()
+    // // .domain([0, topic.offset])
+    // // .range([0, width]);
+    //         ' : ' +
+    //         topic.children.map(child => child.consumergroup + ' - ' + child.offset).join(', ')
+    //     )
+    //     .map(s => (
+    //       <div>{s}</div>
+    //     ))}
+    // </div>
+    
+    <svg width={width} height={height}>
+      <g>
+        {topicsData.map((topic, i) => {
+          return <TopicBar index={i} height={height} topic={topic} width={width} totalNumOfTopics={topicsData.length} />
+        })}
+      </g>
+    </svg>
   );
 };
 

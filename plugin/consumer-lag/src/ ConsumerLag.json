@@ -1,0 +1,90 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 3,
+    "links": [],
+    "panels": [
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "seriesCountSize": "sm",
+          "showSeriesCount": false,
+          "text": "Default value of text input option"
+        },
+        "pluginVersion": "7.1.0",
+        "targets": [
+          {
+            "expr": "kafka_topic_partition_current_offset",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          },
+          {
+            "expr": "kafka_consumergroup_current_offset",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Panel Title",
+        "type": "envoya-consumer-lag"
+      }
+    ],
+    "refresh": "10s",
+    "schemaVersion": 26,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "Consumer Lag",
+    "uid": "JUayz84Gz",
+    "version": 4
+  }
