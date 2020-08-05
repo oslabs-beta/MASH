@@ -23,5 +23,9 @@
   },
   "engines": {
     "node": ">=12 <13"
+  },
+  "dependencies": {
+    "@types/stats-lite": "^2.2.0",
+    "stats-lite": "^2.2.0"
   }
 }
