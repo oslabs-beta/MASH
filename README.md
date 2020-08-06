@@ -26,6 +26,14 @@ MASH is integrated tightly into the tools you already use. MASH uses the Grafana
 
 MASH will need a running instance of Kafka, along with Kafka Exporter and Prometheus. If you are not currently integrated with Prometheus and Kafka Exporter, or are creating a new Grafana instance, a docker-compose file has been provided for your convenience.
 
+Go into the base directory and run the following commands:
+
+``` 
+chmod +x index.sh
+./index.sh
+```
+
+
 The docker-compose file will spin up docker containers with the following:
 
 - Kafka
