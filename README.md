@@ -4,9 +4,9 @@ Welcome to the newest product from Envoya, MASH!
 
 As the scale of your product grows, so does the complexity, and nowhere more so than in your message passing and stream processing infrastructure.
 
-MASH makes it easy to see your most important metrics at a glace. Made specifically to visualize your Kafka cluster, MASH brings you a novel way to simply understand the health of your consumers, and show metrics such as consumer lag in a way that can be understood instantly.
+MASH makes it easy to see your most important metrics at a glance. Made specifically to visualize your Kafka cluster, MASH brings you a novel way to simply understand the health of your consumers, and show metrics such as consumer lag in a way that can be understood instantly.
 
-(Put a picture in here showing the consumer_lag panel)
+![Consumer Lag Panel](assets/consumerLag.gif)
 
 Organization of data such as the average and outlier message consumption rates is also presented clearly and concisely.
 
