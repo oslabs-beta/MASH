@@ -8,9 +8,7 @@
       "name": "Steve Budarz",
       "url": ""
     },
-    "keywords": [
-      "kafka"
-    ],
+    "keywords": ["kafka"],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
@@ -26,8 +24,8 @@
       }
     ],
     "screenshots": [],
-    "version": "%VERSION%",
-    "updated": "%TODAY%"
+    "version": "0.1.0",
+    "updated": "08-04-20"
   },
   "dependencies": {
     "grafanaVersion": "6.3.x",
