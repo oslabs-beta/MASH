@@ -8,11 +8,9 @@ MASH makes it easy to see your most important metrics at a glance. Made specific
 
 ![Consumer Lag Panel](assets/consumerLag.gif)
 
-
 Organization of data such as the average and outlier message consumption rates is also presented clearly and concisely.
 
 ![Consumption Rate Panel](assets/consumerConsumptionRate.gif)
-
 
 In addition to the visulization of these critical metrics, MASH also provides an integrated testbed for message production and consumption to an existing or test Kafka cluster.
 
@@ -28,11 +26,10 @@ MASH will need a running instance of Kafka, along with Kafka Exporter and Promet
 
 Go into the base directory and run the following commands:
 
-``` 
-chmod +x index.sh
-./index.sh
 ```
-
+chmod +x install.sh
+./install.sh
+```
 
 The docker-compose file will spin up docker containers with the following:
 
