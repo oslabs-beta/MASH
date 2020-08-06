@@ -4,25 +4,35 @@ Welcome to the newest product from Envoya, MASH!
 
 As the scale of your product grows, so does the complexity, and nowhere more so than in your message passing and stream processing infrastructure.
 
-MASH makes it easy to see your most important metrics at a glace. Made specifically to visualize your Kafka cluster, MASH brings you a novel way to simply understand the health of your consumers, and show metrics such as consumer lag in a way that can be understood instantly.
+MASH makes it easy to see your most important metrics at a glance. Made specifically to visualize your Kafka cluster, MASH brings you a novel way to simply understand the health of your consumers, and show metrics such as consumer lag in a way that can be understood instantly.
 
-(Put a picture in here showing the consumer_lag panel)
+![Consumer Lag Panel](assets/consumerLag.gif)
+
 
 Organization of data such as the average and outlier message consumption rates is also presented clearly and concisely.
 
-(Put in a picture showing the consumer_messages panel)
+![Consumption Rate Panel](assets/consumerConsumptionRate.gif)
+
 
 In addition to the visulization of these critical metrics, MASH also provides an integrated testbed for message production and consumption to an existing or test Kafka cluster.
 
 Using the control panel, you can create topics and produce messages to them in a clean and efficient way. You can also create consumer groups and consume messages with instant feedback.
 
-(Insert picture of the control panel)
+![Testbed Create a Consumer Topic and Produce Data](assets/testbedProduction.gif)
 
 TO USE:
 
 MASH is integrated tightly into the tools you already use. MASH uses the Grafana platform to present its panels and dashboards. In addition, MASH uses Prometheus with the Kafka Exporter for data collection and aggregation.
 
 MASH will need a running instance of Kafka, along with Kafka Exporter and Prometheus. If you are not currently integrated with Prometheus and Kafka Exporter, or are creating a new Grafana instance, a docker-compose file has been provided for your convenience.
+
+Go into the base directory and run the following commands:
+
+``` 
+chmod +x index.sh
+./index.sh
+```
+
 
 The docker-compose file will spin up docker containers with the following:
 
@@ -45,3 +55,7 @@ As part of developing MASH, our team attempted to procure a testing platform whi
 Therefore, we have incorporated the testbed into the MASH package. This can be controlled through Grafana by using the Control Panel. This will provide the current topics of your Kafka instance, along with the ability to send and consume messages from the cluster through a proxy server, and to create new topics and produce messages to them.
 
 A near-term goal for MASH is to incorporate customizable data for more control of the test data produced through the platform.
+
+CONTRIBUTING:
+
+The team at Envoya invites all testing, feedback, and suggestions that the community can provide. We pride ourselves on our commitment to the Open Source Community and believe in the collaborative nature of software design and growth.
