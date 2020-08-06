@@ -55,3 +55,7 @@ As part of developing MASH, our team attempted to procure a testing platform whi
 Therefore, we have incorporated the testbed into the MASH package. This can be controlled through Grafana by using the Control Panel. This will provide the current topics of your Kafka instance, along with the ability to send and consume messages from the cluster through a proxy server, and to create new topics and produce messages to them.
 
 A near-term goal for MASH is to incorporate customizable data for more control of the test data produced through the platform.
+
+CONTRIBUTING:
+
+The team at Envoya invites all testing, feedback, and suggestions that the community can provide. We pride ourselves on our commitment to the Open Source Community and believe in the collaborative nature of software design and growth.
