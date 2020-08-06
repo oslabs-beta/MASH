@@ -3,7 +3,7 @@ import { PanelProps, PanelData, DataFrame } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory, useTheme } from '@grafana/ui';
-import {TopicBar} from './Components/Topic'
+import { TopicBar } from './Components/Topic';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
@@ -28,7 +28,8 @@ const getLastElement = (arr: number[]) => arr[arr.length - 1];
   */
 
 const filterTopic = (data: PanelData) => {
-  return data.series.filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
+  return data.series
+    .filter(series => series.name?.includes('kafka_topic_partition_current_offset'))
     .filter(series => (series.fields[1].labels ? series.fields[1].labels.topic !== '__consumer_offsets' : false));
 };
 
@@ -98,7 +99,6 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
   */
 
   return (
-
     //   {/* for each consumer/topic, on hover / click, expand the bar and add data*/}
     //   {topicsData
     //     .map(
@@ -117,11 +117,13 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
     //       <div>{s}</div>
     //     ))}
     // </div>
-    
+
     <svg width={width} height={height}>
       <g>
         {topicsData.map((topic, i) => {
-          return <TopicBar index={i} height={height} topic={topic} width={width} totalNumOfTopics={topicsData.length} />
+          return (
+            <TopicBar index={i} height={height} topic={topic} width={width} totalNumOfTopics={topicsData.length} />
+          );
         })}
       </g>
     </svg>
