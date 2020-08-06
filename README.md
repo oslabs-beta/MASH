@@ -6,17 +6,19 @@ As the scale of your product grows, so does the complexity, and nowhere more so 
 
 MASH makes it easy to see your most important metrics at a glance. Made specifically to visualize your Kafka cluster, MASH brings you a novel way to simply understand the health of your consumers, and show metrics such as consumer lag in a way that can be understood instantly.
 
-![Consumer Lag Panel](assets/consumerLag.gif)
+![Consumer Lag Panel](assets/consumerLag.gif?raw=true"Consumer Lag Panel")
+
 
 Organization of data such as the average and outlier message consumption rates is also presented clearly and concisely.
 
-(Put in a picture showing the consumer_messages panel)
+![Consumption Rate Panel](assets/consumerConsumptionRate.gif?raw=true"Consumption Rate Panel")
+
 
 In addition to the visulization of these critical metrics, MASH also provides an integrated testbed for message production and consumption to an existing or test Kafka cluster.
 
 Using the control panel, you can create topics and produce messages to them in a clean and efficient way. You can also create consumer groups and consume messages with instant feedback.
 
-(Insert picture of the control panel)
+![Testbed Create a Consumer Topic and Produce Data](assets/testbedProduction.gif?raw=true"Testbed Create a Consumer Topic and Produce Data ")
 
 TO USE:
 
